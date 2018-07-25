@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
 import '../App.css';
 import Contacts from './Contacts';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.addContact=this.addContact.bind(this);
+  }
+
+  state={
+    contacts: [{
+      name: 'Kasim',
+      phone: '05385644299'
+    }, {
+      name: 'Halit',
+      phone: '0571444477'
+    }]
+  };
+
+  addContact(contact){
+      const { contacts } = this.state;
+      contacts.push(contact);
+      this.setState({
+          contacts
+      });
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-          <Contacts/>
+          <Contacts addContact={this.addContact} contacts={this.state.contacts}/>
       </div>
     );
   }
